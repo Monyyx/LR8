@@ -52,22 +52,23 @@ void inputCheck (auto &number){
         }
 }
 
-bool isHour(char c1, char c2) {// 0(1)
+bool isHour(char c1, char c2, char c3, char c4) {// 0(1)
+    if(c1 == '2' && c2 == '4') return (c3 == c4 == '0') ? 1 : 0;
+    else {
     bool first = ('0' <= c1 && c1 < '2') && ('0' <= c2 && c2 <= '9');
     bool second = (c1 == '2' && ('0' <= c2 && c2 <= '4'));
     return first || second;
+    }
 }
 
 bool isMinute(char c1, char c2) {// 0(1)
-    bool first = ('0' <= c1 && c1 < '6') && ('0' <= c2 && c2 <= '9');
-    bool second = (c1 == '6' && c2 == '0');
-    return first || second;
+    return ('0' <= c1 && c1 < '6') && ('0' <= c2 && c2 <= '9');
 }
 
 void inputTime(std::string &time){
     while (true) {
             std::cin >> time;
-            bool hour = isHour(time[0], time[1]);
+            bool hour = isHour(time[0], time[1], time[3], time[4]);
             bool minute = isMinute(time[3], time[4]);
             if (!hour  ||  time[2] != ':'  ||  !minute) {
                 std::cin.clear();
@@ -127,6 +128,7 @@ int main(){
 */
     flight test;
     inputStruct(test);
+    std::cout << test.addInfo.flightNumber << '\n' << test.classOfFlight << '\n' << test.destination << '\n' << test.arrivalTime;
     
 
     return 0;
