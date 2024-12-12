@@ -1,8 +1,4 @@
-//#include "func_1.h"
-#include <iostream>
-#include <limits>
-#include <string>
-
+#include "functions_1.h"
 // 1 -- ввод значений в структру
     /* основная функция - принять структура и сделать проверку на ввод там где int, double
     1.1 -- ввод заранее заданнаго количества стурктур(в начале спросить
@@ -27,24 +23,111 @@
     4.1 deleteStruct
 */
 
+/*
+size_t capacity = 20;
+    flight* input = new flight[capacity];
+    size_t size = 0;
 
-typedef struct flightInform {
-    std::string classOfFlight;
+        if (size >= capacity - 1) {
+            capacity *= 2;
+            flight* newInput = new flight[capacity];
+            std::copy(input, input+size, newInput);
+            delete[] input;
+            input = newInput;
+*/
+
+void inputCheck (auto &number){
+    while (true) {
+            std::cin >> number;
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid number: ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid number: ";
+            } else {
+                break;
+            }
+        }
+}
+
+bool isHour(char c1, char c2) {// 0(1)
+    bool first = ('0' <= c1 && c1 < '2') && ('0' <= c2 && c2 <= '9');
+    bool second = (c1 == '2' && ('0' <= c2 && c2 <= '4'));
+    return first || second;
+}
+
+bool isMinute(char c1, char c2) {// 0(1)
+    bool first = ('0' <= c1 && c1 < '6') && ('0' <= c2 && c2 <= '9');
+    bool second = (c1 == '6' && c2 == '0');
+    return first || second;
+}
+
+void inputTime(std::string &time){
+    while (true) {
+            std::cin >> time;
+            bool hour = isHour(time[0], time[1]);
+            bool minute = isMinute(time[3], time[4]);
+            if (!hour  ||  time[2] != ':'  ||  !minute) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid time: ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid time: ";
+            } else {
+                break;
+            }
+        }
+}
+
+typedef struct flightInfo {
     union{
         double airplaneTypeCode;
         int  flightNumber;
-    };
-    std::string destination; //пункт назначения
-    std::string arraivalTime;
+    } addInfo;
+    std::string classOfFlight;
+    std::string destination; 
+    std::string arrivalTime;
 } flight; 
 
+void inputStruct(flight &myStruct){
+    char choice;
+    std::cout << "Enter 1 or 2 to input (flight number) / (airplane code): ";
+    while(true){
+        std::cin >> choice;
+        if (choice == '1'){
+        std::cout << "Enter flight number: ";
+        inputCheck(myStruct.addInfo.flightNumber);
+        break;
+    } else if (choice == '2'){
+        std::cout << "Enter airplane code: ";
+        inputCheck(myStruct.addInfo.airplaneTypeCode);
+        break;
+    }
+    }
+    std::cout << "Enter class of your flight(first, business etc.): ";
+    std::cin >> myStruct.classOfFlight;
+    std::cout << "Enter your plane destination: ";
+    std::cin >> myStruct.destination;
+    std::cout << "Enter arrival time(hh:mm): ";
+    inputTime(myStruct.arrivalTime);
+}
+
+
 int main(){
+    /*
     flight test;
     test.classOfFlight = "first";
     test.airplaneTypeCode = 111;
     test.destination = "New York";
     test.arraivalTime = "17:31";
     std::cout << test.flightNumber << " " << test.airplaneTypeCode << "  " << test.destination << " " << test.arraivalTime;
+*/
+    flight test;
+    inputStruct(test);
+    
 
     return 0;
 }
