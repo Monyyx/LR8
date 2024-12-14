@@ -1,11 +1,8 @@
 #include "functions_1.h"
 // 1 -- ввод значений в структру
     /* основная функция - принять структура и сделать проверку на ввод там где int, double
-    1.1 -- ввод заранее заданнаго количества стурктур(в начале спросить
-    вы сколько полетов вы хотите занести в структуру и потом вводитьБ после 
-    последней итерации спросить ввод закончен и предложить опять вводить )
-    1.2 --если не знает сколько стурктур то принимать по 1 и спрашивать "хотите продолжить?"
-    ***1.3 воодить пока не найдем структуру с определенным параметром
+    -- если не знает сколько стурктур то принимать по 1 и спрашивать "хотите продолжить?"
+    ???***1.3 воодить пока не найдем структуру с определенным параметром
     */
 // 2 -- вывод всех структур *пусть будет переменная которая зранит количество введенных
 // 3 -- дополнить (в 1 уже есть такой функционал)
@@ -17,8 +14,8 @@
 /*functions
 1 + inputStruct
 2 + outputStruct
-3 - outputFlightNumber
-    3.1  quick sort to upper(для 1 буквы города куда летит)
+3 + outputFlightNumber
+    + 3.1  quick sort to upper(для 1 буквы города куда летит)
 4 - correctingStruct
     4.1 deleteStruct
 */
@@ -39,8 +36,8 @@ void InputCheck(auto &number) {
             }
         }
     }
-// 120 bite
-typedef struct FlightInfo {
+
+typedef struct FlightInfo {// 120 bite
     union {
         double airplane_type_code_;
         long long airplane_type_;
@@ -121,21 +118,21 @@ typedef struct FlightInfo {
 void arrStruct(flightInfo* &input, size_t &size) {
     char choice;
     size_t capacity = 5;
-    std::cout << "Would you like to input a structure? 1 - yes, 2 - no: ";
+    std::cout << "Would you like to input a data about flight? (1 - yes, 0 - no): ";
     while (true) {
         std::cin >> choice;
-        if (std::cin.fail() || (choice != '1' && choice != '2')) {
+        if (std::cin.fail() || (choice != '1' && choice != '0')) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Invalid input. Please enter '1' or '2': ";
+            std::cout << "Invalid input. Please enter '1' or '0': ";
         } else if (std::cin.peek() != '\n') {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Invalid input. Please enter '1' or '2': ";
+            std::cout << "Invalid input. Please enter '1' or '0': ";
         } else {
             break;
         }
     }
-    if (choice == '2') {
+    if (choice == '0') {
         return;
     }
 
@@ -152,34 +149,64 @@ void arrStruct(flightInfo* &input, size_t &size) {
     arrStruct(input, size);
 }
 
-void outputStruct(flightInfo* myStruct, size_t size){
-    for(size_t i = 0; i < size; ++i){
+void outputStruct(flightInfo myStruct, size_t i){
         std::cout << "Output data for flight  " << i + 1 << ":\n";
-        if(myStruct[i].is_code_){
-            std::cout << "Code of the airplane: " << myStruct[i].add_info_.airplane_type_code_ << '\n';
+        if(myStruct.is_code_){
+            std::cout << "Code of the airplane: " << myStruct.add_info_.airplane_type_code_ << '\n';
         } else{
-            std::cout << "Airplane: " << myStruct[i].add_info_.airplane_type_ << '\n';
+            std::cout << "Airplane: " << myStruct.add_info_.airplane_type_ << '\n';
         }
-        std::cout << "Number of the flight :  " << myStruct[i].flight_number_ << '\n';
-        std::cout << "Class of the flight: " << myStruct[i].class_of_flight_ << '\n';
-        std::cout << "Your destination: " << myStruct[i].destination_ << '\n';
-        std::cout << "Flight arrival time: " << myStruct[i].arrival_time_ << '\n' << '\n';
+        std::cout << "Number of the flight :  " << myStruct.flight_number_ << '\n';
+        std::cout << "Class of the flight: " << myStruct.class_of_flight_ << '\n';
+        std::cout << "Your destination: " << myStruct.destination_ << '\n';
+        std::cout << "Flight arrival time: " << myStruct.arrival_time_ << '\n' << '\n';
+}
+
+void outpurArrStruct(flightInfo* myStruct, size_t size){
+    for(size_t i = 0; i < size; ++i){
+        outputStruct(myStruct[i], i);
     }
 }
 
-bool compareByDestination(const FlightInfo &a, const FlightInfo &b) {
+bool compareByDestinationIgnoreRegistr(const FlightInfo &a, const FlightInfo &b) {///
+    std::string destinationA = a.destination_;
+    std::string destinationB = b.destination_;
+    std::transform(destinationA.begin(), destinationA.end(), destinationA.begin(), ::tolower);
+    std::transform(destinationB.begin(), destinationB.end(), destinationB.begin(), ::tolower);
+
     return a.destination_ < b.destination_;
 }
 
+void outputInterestingStruct(flightInfo* myStruct, size_t size){
+    std::string interstCity;
+    std::cout << "Enter the destination point of interesting flight: ";
+    std::cin >> interstCity;
+    std::transform(interstCity.begin(), interstCity.end(), interstCity.begin(), ::tolower);
+    size_t count = 1;
+    std::sort(myStruct, myStruct + size, compareByDestinationIgnoreRegistr);
+
+    for(size_t i = 0; i < size; ++i){
+        std::string destinationLower = myStruct[i].destination_;
+        std::transform(destinationLower.begin(), destinationLower.end(), destinationLower.begin(), ::tolower);
+        if (interstCity[0] > myStruct[i].destination_[0]) break;
+        else {
+            if (destinationLower == interstCity){
+                outputStruct(myStruct[i], count);
+                ++count;
+            }
+        }
+    }
+}
 
 int main(){
     size_t size = 0;
     flightInfo* scheldue = new flightInfo[5];
-    arrStruct(scheldue, size);
+    arrStruct(scheldue, size);// создание массива структур
 
-    std::sort(scheldue, scheldue + size, compareByDestination); // Вывод информации о рейсах for(int i = 0; i
+    //std::sort(scheldue, scheldue + size, compareByDestination);
+    outputInterestingStruct(scheldue, size);
 
-    outputStruct(scheldue, size);
+    //outpurArrStruct(scheldue, size);// вывод массива структур 
     
     delete[] scheldue;
 
