@@ -23,36 +23,8 @@
     4.1 deleteStruct
 */
 
-/*
-size_t capacity = 20;
-    flight* input = new flight[capacity];
-    size_t size = 0;
 
-        if (size >= capacity - 1) {
-            capacity *= 2;
-            flight* newInput = new flight[capacity];
-            std::copy(input, input+size, newInput);
-            delete[] input;
-            input = newInput;
-*/
-
-#include <iostream>
-#include <limits>
-#include <string>
-
-typedef struct FlightInfo {
-    union {
-        double airplane_type_code_;
-        long long airplane_type_;
-    } add_info_;
-
-    bool is_code_;
-    long long flight_number_;
-    std::string class_of_flight_;
-    std::string destination_; 
-    std::string arrival_time_;
-
-    void InputCheck(auto &number) {
+void InputCheck(auto &number) {
         while (true) {
             std::cin >> number;
             if (std::cin.fail()) {
@@ -67,7 +39,20 @@ typedef struct FlightInfo {
             }
         }
     }
+// 120 bite
+typedef struct FlightInfo {
+    union {
+        double airplane_type_code_;
+        long long airplane_type_;
+    } add_info_;
 
+    bool is_code_;
+    long long flight_number_;
+    std::string class_of_flight_;
+    std::string destination_; 
+    std::string arrival_time_;
+
+    private:
     bool IsTime(const std::string &time) {
         if (time.length() != 5 || time[2] != ':') return false; 
         int hour = std::stoi(time.substr(0, 2)); 
@@ -117,6 +102,7 @@ typedef struct FlightInfo {
         }
     }
 
+    public:
     void InputStruct() {
         std::cout << "Enter 1 or 2 to input (airplane type) / (airplane code): ";
         InputUnion();
@@ -130,10 +116,9 @@ typedef struct FlightInfo {
         std::cin.ignore();
         InputTime(arrival_time_);
     }
-} flight;
+} flightInfo;
 
-
-void arrStruct(flight* &input, size_t &size) {
+void arrStruct(flightInfo* &input, size_t &size) {
     char choice;
     size_t capacity = 5;
     std::cout << "Would you like to input a structure? 1 - yes, 2 - no: ";
@@ -156,7 +141,7 @@ void arrStruct(flight* &input, size_t &size) {
 
     if (size >= capacity - 1) {
         capacity *= 2;
-        flight* newInput = new flight[capacity];
+        flightInfo* newInput = new flightInfo[capacity];
         std::copy(input, input + size, newInput);
         delete[] input;
         input = newInput;
@@ -167,7 +152,7 @@ void arrStruct(flight* &input, size_t &size) {
     arrStruct(input, size);
 }
 
-void outputStruct(flight* myStruct, size_t size){
+void outputStruct(flightInfo* myStruct, size_t size){
     for(size_t i = 0; i < size; ++i){
         std::cout << "Output data for flight  " << i + 1 << ":\n";
         if(myStruct[i].is_code_){
@@ -182,10 +167,18 @@ void outputStruct(flight* myStruct, size_t size){
     }
 }
 
+bool compareByDestination(const FlightInfo &a, const FlightInfo &b) {
+    return a.destination_ < b.destination_;
+}
+
+
 int main(){
     size_t size = 0;
-    flight* scheldue = new flight[5];
+    flightInfo* scheldue = new flightInfo[5];
     arrStruct(scheldue, size);
+
+    std::sort(scheldue, scheldue + size, compareByDestination); // Вывод информации о рейсах for(int i = 0; i
+
     outputStruct(scheldue, size);
     
     delete[] scheldue;
