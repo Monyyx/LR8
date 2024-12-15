@@ -11,7 +11,7 @@ set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address,undefined,leak"
 
 set(CMAKE_CXX_COMPILER "g++")
 
-add_executable(LR7
+add_executable(LR8
         LR8.cpp
         func_task1.cpp
         func_task2.cpp

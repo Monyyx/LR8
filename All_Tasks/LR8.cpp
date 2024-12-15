@@ -127,7 +127,7 @@ int main() {
                 WhatISIt();
                 break;
                 case 2:
-                //Task_1();
+                Task_1();
                 break;
                 case 3:
                 //Task_2();
