@@ -10,6 +10,8 @@
 можно воспользоваться для прибытия в пункт назначения раньше
 заданного времени.*/
 
+void InputCheck(auto& number);
+
 typedef struct BusInfo {
     union {
         double bus_type_;
@@ -42,6 +44,12 @@ private:
                 break;
             }
         }
+    }
+
+    bool CheckArrivDepart(const std::string arriaval, const std::string department){
+        long long timeArrive = (10 * arriaval[4] + arriaval[3]) * 3600 + (10 * arriaval[1] + arriaval[0]) * 60;
+        long long timeDepartment = (10 * department[4] + department[3]) * 3600 + (10 * department[1] + department[0]) * 60;
+        return (timeDepartment > timeArrive) ? 1 : 0;
     }
 
     void InputUnion() {
@@ -80,15 +88,21 @@ public:
         std::cin.ignore();
         InputTime(arrival_time_);
         std::cout << "Enter departure time (hh:mm): ";
-        std::cin.ignore();
-        InputTime(departure_time_);// сделать проверку что позже приезжает 
+        while(true){
+            std::cin.ignore();
+            InputTime(departure_time_);
+            if(CheckArrivDepart(arrival_time_, departure_time_)) break;
+        }
     }
 } BusInfo;
 
+void InputArrStruct(BusInfo*& input, size_t& size);
 
-void ExplainTask2() {
-    std::cout << "In the reference office of the bus station, there is a schedule of bus routes.\n"
-              << "Each route includes its number, the type of bus, the destination point,\n"
-              << "departure time, and arrival time. Display information about the routes that\n"
-              << "can be used to arrive at the destination point before a given time.\n";
-}
+void OutputArrStruct(BusInfo* my_struct, size_t size);
+
+//в хедере описание 
+
+void DeleteFlightData(BusInfo** my_struct, size_t& size);
+
+void ExplainTask2();
+
