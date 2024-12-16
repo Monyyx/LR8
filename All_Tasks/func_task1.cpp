@@ -1,9 +1,7 @@
 #include "functions_1.h"
 // 1 -- ввод значений в структру
     /* основная функция - принять структура и сделать проверку на ввод там где int, double
-    -- если не знает сколько стурктур то принимать по 1 и спрашивать "хотите продолжить?"
-    ???***1.3 воодить пока не найдем структуру с определенным параметром
-    */
+    -- если не знает сколько стурктур то принимать по 1 и спрашивать "хотит 
 // 2 -- вывод всех структур *пусть будет переменная которая зранит количество введенных
 // 3 -- дополнить (в 1 уже есть такой функционал)
 // 4 -- вывод номер рейсов которыые выдетаю(куда пользователь скажет) quick sort to upper (для 1 буквы города куда летит)
@@ -18,7 +16,6 @@
 4 - correctingStruct
     4.1 deletetruct
 */
-
 void InputCheck(auto& number) {
     while (true) {
         std::cin >> number;
@@ -37,7 +34,7 @@ void InputCheck(auto& number) {
 
 void InputArrStruct(FlightInfo*& input, size_t& size) {
     char choice;
-    size_t capacity = 5;
+    size_t capacity;
     std::cout << "Would you like to input data about a flight? (1 - yes, 0 - no): ";
     while (true) {
         std::cin >> choice;
@@ -139,20 +136,28 @@ void OutputInterestingStruct(FlightInfo* my_struct, size_t size) {
     }
 }
 
-/*int main(){
-    size_t size = 0;
-    flightInfo* scheldue = new flightInfo[5];
-    arrStruct(scheldue, size);// создание массива структур
-
-    //std::sort(scheldue, scheldue + size, compareByDestination);
-    OutputInterestingStruct(scheldue, size);
-
-    //outpurArrStruct(scheldue, size);// вывод массива структур и сделать вывод массив после qsort
-    
-    delete[] scheldue;
-
-    return 0;
-}*/
+void DeleteFlightData(FlightInfo** my_struct, size_t& size) {
+    std::cout << "Your sure that you want delete all data about flights& (1 - yes, 0 - no): ";
+    char choice;
+    while (true) {
+        std::cin >> choice;
+        if (std::cin.fail() || (choice != '1' && choice != '0')) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter '1' or '0': ";
+        } else if (std::cin.peek() != '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter '1' or '0': ";
+        } else {
+            break;
+        }
+    }
+    if(choice == '1')  {
+        delete[] *my_struct;
+        size = 0;
+        *my_struct = new flightInfo[5];
+    } 
+}
 
 void AuthorInfo() {
     std::cout << "Completed by: Matvei Khadorik\n";
@@ -172,7 +177,7 @@ void DisplayMenuTask() {
               << "3. Input info about flight\n"
               << "4. Find flights to town\n"
               << "5. Output all information\n"
-              // мб удалять что-то из
+              << "6. Delete all information\n"
               << "0. Exit\n"
               << "Choose an option: ";
 }

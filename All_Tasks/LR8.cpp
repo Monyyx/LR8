@@ -5,18 +5,19 @@
 void Task_1(){
 size_t size = 0;
 flightInfo* scheldue = new flightInfo[5];
+flightInfo** arrStruct = &scheldue;
 int choice;
     do {
         DisplayMenuTask();
         while (true) {
             std::cin >> choice;
-            if (std::cin.fail() || choice < 0 || choice > 5) {
+            if (std::cin.fail() || choice < 0 || choice > 6) {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter a valid option (0-3): ";
+                std::cout<< "Invalid input. Please enter a valid option (0-6): ";
             } else if (std::cin.peek() != '\n') {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter a valid option (0-3): ";
+                std::cout << "Invalid input. Please enter a valid option (0-6): ";
             } else {
                 break;
             }
@@ -33,11 +34,14 @@ int choice;
                 break;
             case 4:
                 if(size != 0) OutputInterestingStruct(scheldue, size);
-                else std::cout << "First you need to add info about flights!/n";
+                else std::cout << "First you need to add info about flights!\n";
                 break;
             case 5:
                 if (size != 0) OutputArrStruct(scheldue, size);
-                else std::cout << "First you need to add info about flights!/n";
+                else std::cout << "First you need to add info about flights!\n";
+                break;
+            case 6:
+                DeleteFlightData(arrStruct, size);
                 break;
             case 0:
                 std::cout << "Exiting the program.\n";

@@ -95,3 +95,5 @@ void InputArrStruct(FlightInfo*& input, size_t& size);
 void OutputInterestingStruct(FlightInfo* my_struct, size_t size);
 
 void OutputArrStruct(FlightInfo* my_struct, size_t size);
+
+void DeleteFlightData(FlightInfo** my_struct, size_t& size);
