@@ -56,20 +56,20 @@ int choice;
 }
 
 
-/*
+
 void Task_2(){
 int choice;
     do {
         DisplayMenuTask();
         while (true) {
             std::cin >> choice;
-            if (std::cin.fail() || choice < 0 || choice > 3) {
+            if (std::cin.fail() || choice < 0 || choice > 3) { //???
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter a valid option (0-3): ";
+                std::cout << "Invalid input. Please enter a valid option (0-3): ";//???
             } else if (std::cin.peek() != '\n') {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter a valid option (0-3): ";
+                std::cout << "Invalid input. Please enter a valid option (0-3): ";// ???
             } else {
                 break;
             }
@@ -82,7 +82,7 @@ int choice;
                 AuthorInfo();
                 break;
             case 3:
-                InputValues2();
+                
                 break;
             case 0:
                 std::cout << "Exiting the program.\n";
