@@ -3,6 +3,7 @@
 #include <string>
 #include <limits>
 #include <algorithm>
+#include <fstream>
 
 void InputCheck(auto& number);
 
@@ -69,11 +70,9 @@ private:
     }
 
 public:
-    void EditStruct(FlightInfo* my_struct) {
-        if (!my_struct) return; // Проверка, что указатель не нулевой
-
+    void EditStructPoles(FlightInfo* my_struct) {
         char choice;
-        std::cout << "Would you like to edit this flight structure? (1 - yes, 0 - no): ";
+        std::cout << "Would you like to edit this flight data? (1 - yes, 0 - no): ";
         while (true) {
             std::cin >> choice;
             if (std::cin.fail() || (choice != '1' && choice != '0')) {
@@ -184,7 +183,11 @@ void OutputArrStruct(FlightInfo* my_struct, size_t size);
 
 void OutputInterestingStruct(FlightInfo* my_struct, size_t size);
 
+void CorrectStruct(flightInfo* my_struct, size_t size);
+
 void DeleteFlightData(FlightInfo** my_struct, size_t& size);
+
+void BinaryFile(const std::string &filename, FlightInfo *&my_struct, size_t &size);
 
 void AuthorInfo();
 
