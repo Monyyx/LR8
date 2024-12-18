@@ -23,6 +23,32 @@ typedef struct BusInfo {
     std::string departure_time_;
 
 private:
+    void InputUnion() {
+        char choice;
+        while (true) {
+            std::cin >> choice;
+            if (std::cin.fail() || (choice != '1' && choice != '2')) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter '1' or '2': ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter '1' or '2': ";
+            } else {
+                break;
+            }
+        }
+        if (choice == '1') {
+            std::cout << "Enter bus type: ";
+            InputCheck(add_info_.bus_type_);
+            is_type_ = false;
+        } else {
+            std::cout << "Enter bus number: ";
+            InputCheck(add_info_.bus_number_);
+            is_type_ = true;
+        }
+    }
+
     bool IsTime(const std::string& time) const {
         if (time.length() != 5 || time[2] != ':') return false;
         int hour = std::stoi(time.substr(0, 2));
@@ -52,32 +78,6 @@ private:
         return (timeDepartment > timeArrive) ? 1 : 0;
     }
 
-    void InputUnion() {
-        char choice;
-        while (true) {
-            std::cin >> choice;
-            if (std::cin.fail() || (choice != '1' && choice != '2')) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter '1' or '2': ";
-            } else if (std::cin.peek() != '\n') {
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter '1' or '2': ";
-            } else {
-                break;
-            }
-        }
-        if (choice == '1') {
-            std::cout << "Enter bus type: ";
-            InputCheck(add_info_.bus_type_);
-            is_type_ = false;
-        } else {
-            std::cout << "Enter bus number: ";
-            InputCheck(add_info_.bus_number_);
-            is_type_ = true;
-        }
-    }
-
 public:
     void InputStruct() {
         std::cout << "Enter 1 or 2 to input (bus type) / (bus number): ";
@@ -100,7 +100,9 @@ void InputArrStruct(BusInfo*& input, size_t& size);
 
 void OutputArrStruct(BusInfo* my_struct, size_t size);
 
-//в хедере описание 
+void OutputInterestingStruct(BusInfo* my_struct, size_t size);
+
+//func desription in cpp
 
 void DeleteFlightData(BusInfo** my_struct, size_t& size);
 

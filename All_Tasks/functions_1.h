@@ -69,6 +69,100 @@ private:
     }
 
 public:
+    void EditStruct(FlightInfo* my_struct) {
+        if (!my_struct) return; // Проверка, что указатель не нулевой
+
+        char choice;
+        std::cout << "Would you like to edit this flight structure? (1 - yes, 0 - no): ";
+        while (true) {
+            std::cin >> choice;
+            if (std::cin.fail() || (choice != '1' && choice != '0')) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter '1' or '0': ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter '1' or '0': ";
+            } else {
+                break;
+            }
+        }
+        if (choice == '0') {
+            return;
+        }
+
+        std::cout << "Enter the number of the field to edit:\n";
+        std::cout << "1 - Airplane Type / Number\n";
+        std::cout << "2 - Flight Number\n";
+        std::cout << "3 - Class of Flight\n";
+        std::cout << "4 - Destination\n";
+        std::cout << "5 - Arrival Time\n";
+
+        size_t field_choice;
+        while (true) {
+            std::cin >> field_choice;
+            if (std::cin.fail() || field_choice < 1 || field_choice > 5) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid field number (1 to 5): ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid field number (1 to 5): ";
+            } else {
+                break;
+            }
+        }
+
+        switch (field_choice) {
+            case 1:
+                std::cout << "Enter 1 to input airplane type code or 2 to input airplane type: ";
+                char type_choice;
+                while (true) {
+                    std::cin >> type_choice;
+                    if (std::cin.fail() || (type_choice != '1' && type_choice != '2')) {
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::cout << "Invalid input. Please enter '1' or '2': ";
+                    } else if (std::cin.peek() != '\n') {
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::cout << "Invalid input. Please enter '1' or '2': ";
+                    } else {
+                        break;
+                    }
+                }
+                if (type_choice == '1') {
+                    std::cout << "Enter airplane type code: ";
+                    InputCheck(my_struct->add_info_.airplane_type_code_);
+                    my_struct->is_code_ = true;
+                } else {
+                    std::cout << "Enter airplane type: ";
+                    InputCheck(my_struct->add_info_.airplane_type_);
+                    my_struct->is_code_ = false;
+                }
+                break;
+            case 2:
+                std::cout << "Enter flight number: ";
+                InputCheck(my_struct->flight_number_);
+                break;
+            case 3:
+                std::cout << "Enter class of flight: ";
+                std::cin >> my_struct->class_of_flight_;
+                break;
+            case 4:
+                std::cout << "Enter destination: ";
+                std::cin >> my_struct->destination_;
+                break;
+            case 5:
+                std::cout << "Enter arrival time (hh:mm): ";
+                std::cin.ignore();
+                my_struct->InputTime(my_struct->arrival_time_);
+                break;
+            default:
+                std::cout << "Invalid choice.\n";
+                break;
+        }
+    }
+
     void InputStruct() {
         std::cout << "Enter 1 or 2 to input (airplane type) / (airplane code): ";
         InputUnion();

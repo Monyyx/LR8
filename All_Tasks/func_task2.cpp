@@ -16,6 +16,35 @@ void InputCheck(auto& number) {
     }
 }
 
+bool IsTime(const std::string& time)  {
+        if (time.length() != 5 || time[2] != ':') return false;
+        int hour = std::stoi(time.substr(0, 2));
+        int minute = std::stoi(time.substr(3, 2));
+        return (hour >= 0 && hour <= 24) && (minute >= 0 && minute < 60);
+    }
+
+void InputTime(std::string& time) {
+        while (true) {
+            std::cin >> time;
+            if (!IsTime(time)) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid time: ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid time: ";
+            } else {
+                break;
+            }
+        }
+    }
+
+bool CheckArrivDepart(const std::string arriaval, const std::string department){
+        long long timeArrive = (10 * arriaval[4] + arriaval[3]) * 3600 + (10 * arriaval[1] + arriaval[0]) * 60;
+        long long timeDepartment = (10 * department[4] + department[3]) * 3600 + (10 * department[1] + department[0]) * 60;
+        return (timeDepartment > timeArrive) ? 1 : 0;
+    }
+
 void InputArrStruct(BusInfo*& input, size_t& size) {
     char choice;
     size_t capacity;
@@ -71,7 +100,7 @@ bool CompareByDestinationIgnoreCase(const BusInfo& a, const BusInfo& b) {
     return destination_a < destination_b;
 }
 
-void OutputArrStruct(BusInfo* my_struct, size_t size) {
+void OutputArrStruct(BusInfo*& my_struct, size_t size) {
     char choice;
     std::cout << "Would you like to get sorting bus scheldue? (1 - yes, 0 - no): ";
     while (true) {
@@ -101,7 +130,38 @@ void OutputArrStruct(BusInfo* my_struct, size_t size) {
     }
 }
 
-//добавить поиск по двум параметрам 1 - у город, 2 - время прибытия (сначала отсортить по городу а потом проветь время)
+void OutputInterestingStruct(BusInfo* my_struct, size_t size) {
+    std::string interest_city;
+    std::cout << "Enter the destination point of interesting bus: ";
+    std::cin >> interest_city;
+    std::transform(interest_city.begin(), interest_city.end(), interest_city.begin(), ::tolower);
+    std::string target_time;
+    std::cout << "Enter the latest depatrment time: ";
+            std::cin.ignore();
+            InputTime(target_time);
+
+    size_t count = 1;
+    std::sort(my_struct, my_struct + size, CompareByDestinationIgnoreCase);
+
+    for (size_t i = 0; i < size; ++i) {
+        std::string destination_lower = my_struct[i].destination_;
+        std::transform(destination_lower.begin(), destination_lower.end(), destination_lower.begin(), ::tolower);
+        if (destination_lower == interest_city) {
+            if (CheckArrivDepart(my_struct->departure_time_, target_time)) {
+            OutputStruct(my_struct[i], count);
+            ++count;
+            }
+        }
+    }
+
+    if (count == 1) { 
+        std::cout << "No buses arriving at " << interest_city << " before " << target_time << ".\n"; 
+    }
+}
+
+// сделать корректировку структуры в текствовом
+// в текстовом  фа&цйле хранить все стркутуры
+// делать созраненя в текстов&ый файл и возмодность использовать прошлоесохранение  и удалять сохранение
 
 void DeleteFlightData(BusInfo** my_struct, size_t& size) {
     std::cout << "Your sure that you want delete sheldue (1 - yes, 0 - no): ";

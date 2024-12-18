@@ -134,6 +134,9 @@ void OutputInterestingStruct(FlightInfo* my_struct, size_t size) {
             ++count;
         }
     }
+    if (count == 1) { 
+        std::cout << "No airplanes arriving at " << interest_city << ".\n";
+    }
 }
 
 void DeleteFlightData(FlightInfo** my_struct, size_t& size) {
@@ -159,11 +162,15 @@ void DeleteFlightData(FlightInfo** my_struct, size_t& size) {
     } 
 }
 
+// сделать корректировку структуры в бинарном 
+// в бинарном фацйле хранить все стркутуры  
+// делать созраненя в бинарный файл
+
 void AuthorInfo() {
     std::cout << "Completed by: Matvei Khadorik\n";
 }
 
-void ExplainTask1() {
+void ExplainTask2() {
     std::cout << "You are given a schedule of flight departures for an airport.\n"
               << "For each flight, the schedule includes its number, the type of airplane, the destination point,\n"
               << "and the departure time. Your task is to display all flight numbers departing to a specified\n"

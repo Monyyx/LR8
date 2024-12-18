@@ -92,7 +92,7 @@ int choice;
         }
         std::cout << '\n';
     } while (choice != 0);
-}*/
+}
 
 
 void DisplayMenu() {
