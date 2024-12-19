@@ -166,7 +166,7 @@ public:
         std::cout << "Enter 1 or 2 to input (airplane type) / (airplane code): ";
         InputUnion();
         std::cout << "Enter flight number: ";
-        std::cin >> flight_number_;
+        InputCheck(flight_number_);
         std::cout << "Enter class of your flight (first, business, etc.): ";
         std::cin >> class_of_flight_;
         std::cout << "Enter your plane destination: ";

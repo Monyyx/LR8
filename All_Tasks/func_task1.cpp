@@ -141,6 +141,7 @@ void CorrectStruct(FlightInfo* my_struct, size_t size){
                 break;
             }
         }
+    OutputStruct(my_struct[choice - 1], choice - 1);
     my_struct[choice - 1].EditStructPoles(&my_struct[choice - 1]);
 }
 
@@ -214,6 +215,7 @@ void LoadStructArrayFromFile(const std::string &filename, FlightInfo *&my_struct
     }
 
     inFile.read(reinterpret_cast<char*>(&size), sizeof(size));
+    delete[] my_struct;
     my_struct = new FlightInfo[size];
 
     for (size_t i = 0; i < size; ++i) {
@@ -248,6 +250,7 @@ void BinaryFile(const std::string &filename, FlightInfo *&my_struct, size_t &siz
               << "1. Safe in binary\n"
               << "2. Load from binary\n"
               << "3. Clear binary\n"
+              << "0. Exit\n"
               << "Choose an option: ";
         while (true) {
             std::cin >> choice;
@@ -277,7 +280,7 @@ void BinaryFile(const std::string &filename, FlightInfo *&my_struct, size_t &siz
                 system("clear");
                 ClearFile(filename);
             case 0:
-                std::cout << "Exiting the program.\n";
+                std::cout << "Exit.\n";
                 break;
             default:
                 std::cout << "Invalid choice. Please try again.\n";
@@ -305,8 +308,9 @@ void DisplayMenuTask() {
               << "3. Input info about flight\n"
               << "4. Find flights to town\n"
               << "5. Output all information\n"
-              << "6. Correct flights data"
+              << "6. Correct flights data\n"
               << "7. Delete all information\n"
+              << "8. Work with binary file\n"
               << "0. Exit\n"
               << "Choose an option: ";
 }

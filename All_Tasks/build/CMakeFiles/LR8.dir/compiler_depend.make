@@ -19,6 +19,7 @@ CMakeFiles/LR8.dir/LR8.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/LR8.cpp
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -26,6 +27,7 @@ CMakeFiles/LR8.dir/LR8.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/LR8.cpp
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
+  /usr/include/c++/13/bits/fstream.tcc \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
@@ -94,6 +96,7 @@ CMakeFiles/LR8.dir/LR8.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/LR8.cpp
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/fstream \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -190,8 +193,10 @@ CMakeFiles/LR8.dir/LR8.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/LR8.cpp
   /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
@@ -226,6 +231,7 @@ CMakeFiles/LR8.dir/func_task1.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -233,6 +239,7 @@ CMakeFiles/LR8.dir/func_task1.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
+  /usr/include/c++/13/bits/fstream.tcc \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
@@ -301,6 +308,7 @@ CMakeFiles/LR8.dir/func_task1.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/fstream \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -397,8 +405,10 @@ CMakeFiles/LR8.dir/func_task1.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
   /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
@@ -644,6 +654,10 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h:
+
 /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
@@ -724,11 +738,13 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
-/usr/include/c++/13/bits/stl_algobase.h:
+/usr/include/stdlib.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/c++/13/bits/refwrap.h:
+
+/usr/include/c++/13/bits/fstream.tcc:
 
 /usr/include/c++/13/debug/debug.h:
 
@@ -737,6 +753,14 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 /usr/include/c++/13/bits/ranges_algo.h:
 
 /usr/include/c++/13/bits/ostream_insert.h:
+
+/usr/include/time.h:
+
+/usr/include/c++/13/bits/memoryfwd.h:
+
+/usr/include/wchar.h:
+
+/usr/include/c++/13/bits/memory_resource.h:
 
 /usr/include/c++/13/bits/invoke.h:
 
@@ -755,6 +779,12 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:
 
 /usr/include/c++/13/bits/ios_base.h:
+
+/usr/include/c++/13/bits/codecvt.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+
+/usr/include/c++/13/bits/stl_tempbuf.h:
 
 /usr/include/c++/13/bits/locale_classes.tcc:
 
@@ -776,29 +806,13 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 
 /usr/include/c++/13/backward/binders.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
-
-/usr/include/c++/13/cstddef:
-
-/usr/include/c++/13/bits/stl_algo.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
-
-/usr/include/c++/13/bits/ptr_traits.h:
-
-/usr/include/c++/13/bit:
-
-/usr/include/c++/13/bits/basic_string.tcc:
-
-/usr/include/alloca.h:
+/usr/include/c++/13/bits/hash_bytes.h:
 
 /usr/include/c++/13/bits/ranges_util.h:
 
 /usr/include/asm-generic/errno-base.h:
 
-/usr/include/c++/13/bits/hash_bytes.h:
+/usr/include/c++/13/algorithm:
 
 /usr/include/c++/13/cwctype:
 
@@ -816,9 +830,17 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 
 /usr/include/c++/13/bits/nested_exception.h:
 
-/usr/include/c++/13/bits/memory_resource.h:
+/usr/include/alloca.h:
 
-/usr/include/wchar.h:
+/usr/include/c++/13/bit:
+
+/usr/include/c++/13/bits/basic_string.tcc:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
+
+/usr/include/c++/13/bits/ptr_traits.h:
 
 /usr/include/c++/13/bits/ranges_algobase.h:
 
@@ -838,15 +860,25 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
+/usr/include/c++/13/bits/ranges_base.h:
+
+/usr/include/c++/13/istream:
+
+/usr/include/c++/13/string_view:
+
+/usr/include/features-time64.h:
+
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
+
+/usr/include/c++/13/bits/basic_string.h:
+
+/usr/include/stdc-predef.h:
+
 /usr/include/c++/13/bits/localefwd.h:
 
 /usr/include/c++/13/bits/exception_defines.h:
 
 /usr/include/c++/13/bits/locale_facets.h:
-
-/usr/include/c++/13/bits/memoryfwd.h:
-
-/usr/include/time.h:
 
 /usr/include/c++/13/bits/cxxabi_forced.h:
 
@@ -857,8 +889,6 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 /usr/include/c++/13/streambuf:
 
 /usr/include/c++/13/bits/exception.h:
-
-/usr/include/c++/13/algorithm:
 
 /usr/include/c++/13/bits/istream.tcc:
 
@@ -878,19 +908,13 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 
 /usr/include/c++/13/ios:
 
-/usr/include/c++/13/bits/ranges_base.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
-/usr/include/c++/13/istream:
+/usr/include/c++/13/cstddef:
 
-/usr/include/c++/13/string_view:
+/usr/include/c++/13/bits/stl_algo.h:
 
-/usr/include/features-time64.h:
-
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
-
-/usr/include/c++/13/bits/basic_string.h:
-
-/usr/include/stdc-predef.h:
+/usr/include/c++/13/bits/stl_algobase.h:
 
 /usr/include/c++/13/bits/stl_construct.h:
 
@@ -921,10 +945,6 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 /usr/include/c++/13/compare:
 
 /usr/include/c++/13/bits/stl_iterator_base_types.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
-
-/usr/include/c++/13/bits/stl_tempbuf.h:
 
 /usr/include/c++/13/bits/stringfwd.h:
 
@@ -971,6 +991,8 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 /home/matvei/453503/ОАиП/LR8/All_Tasks/functions_1.h:
 
 /usr/include/c++/13/bits/stl_pair.h:
+
+/usr/include/c++/13/fstream:
 
 /usr/include/c++/13/cstdio:
 
@@ -1039,5 +1061,3 @@ CMakeFiles/LR8.dir/func_task2.cpp.o: /home/matvei/453503/ОАиП/LR8/All_Tasks/
 /usr/include/linux/errno.h:
 
 /usr/include/pthread.h:
-
-/usr/include/stdlib.h:

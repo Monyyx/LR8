@@ -56,7 +56,7 @@ int choice;
                 DeleteFlightData(arrStruct, size);
                 break;
             case 8:
-                BinaryFile("task_1.bin", scheldue, size);
+                BinaryFile("task_1.hex", scheldue, size);
                 break;
             case 0:
                 std::cout << "Exiting the program.\n";
