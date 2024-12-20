@@ -1,5 +1,6 @@
 #include "functions_2.h"
 
+// functions "helpers" to main functions
 void InputCheck(auto& number) {
     while (true) {
         std::cin >> number;
@@ -45,7 +46,8 @@ bool CheckArrivDepart(const std::string arriaval, const std::string department){
         return (timeDepartment > timeArrive) ? 1 : 0;
     }
 
-void InputArrStruct(BusInfo*& input, size_t& size) {
+//main functions :)
+void InputArrStruct_2(BusInfo*& input, size_t& size) {
     char choice;
     size_t capacity;
     std::cout << "Would you like to input data to bus scheldue? (1 - yes, 0 - no): ";
@@ -76,7 +78,7 @@ void InputArrStruct(BusInfo*& input, size_t& size) {
     std::cout << "Input data for flight " << (size + 1) << ":\n";
     input[size].InputStruct();
     ++size;
-    InputArrStruct(input, size);
+    InputArrStruct_2(input, size);
 }
 
 void OutputStruct(const BusInfo& my_struct, size_t index) {
@@ -100,7 +102,7 @@ bool CompareByDestinationIgnoreCase(const BusInfo& a, const BusInfo& b) {
     return destination_a < destination_b;
 }
 
-void OutputArrStruct(BusInfo*& my_struct, size_t size) {
+void OutputArrStruct_2(BusInfo*& my_struct, size_t size) {
     char choice;
     std::cout << "Would you like to get sorting bus scheldue? (1 - yes, 0 - no): ";
     while (true) {
@@ -130,7 +132,7 @@ void OutputArrStruct(BusInfo*& my_struct, size_t size) {
     }
 }
 
-void OutputInterestingStruct(BusInfo* my_struct, size_t size) {
+void OutputInterestingStruct_2(BusInfo* my_struct, size_t size) {
     std::string interest_city;
     std::cout << "Enter the destination point of interesting bus: ";
     std::cin >> interest_city;
@@ -159,11 +161,30 @@ void OutputInterestingStruct(BusInfo* my_struct, size_t size) {
     }
 }
 
-// сделать корректировку структуры в текствовом
-// в текстовом  фа&цйле хранить все стркутуры
-// делать созраненя в текстов&ый файл и возмодность использовать прошлоесохранение  и удалять сохранение
+// work with text file
+void CorrectStruct_2(FlightInfo* my_struct, size_t size){
+    std::cout << "Enter the number of flight that you want to correct : ";
+    int choice;
+    while (true) {
+            std::cin >> choice;
+            if (std::cin.fail() || choice < 0 || choice > size) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid option (0- " << size << "): ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid option (0-" << size << "):";
+            } else {
+                break;
+            }
+        }
+    OutputStruct(my_struct[choice - 1], choice - 1);
+    my_struct[choice - 1].EditStructPoles(&my_struct[choice - 1]);
+}
 
-void DeleteFlightData(BusInfo** my_struct, size_t& size) {
+
+// context menu
+void DeleteBusData_2(BusInfo** my_struct, size_t& size) {
     std::cout << "Your sure that you want delete sheldue (1 - yes, 0 - no): ";
     char choice;
     while (true) {
@@ -191,4 +212,18 @@ void ExplainTask2() {
               << "Each route includes its number, the type of bus, the destination point,\n"
               << "departure time, and arrival time. Display information about the routes that\n"
               << "can be used to arrive at the destination point before a given time.\n";
+}
+
+void DisplayMenuTask2() { 
+    std::cout << "--- Context menu ---\n"
+              << "1. Task description\n"
+              << "2. Author information\n"
+              << "3. Input info about bus\n"
+              << "4. Find bus to town\n"
+              << "5. Output all information\n"
+              << "6. Correct bus data\n"
+              << "7. Delete all information\n"
+              << "8. Work with text file\n"
+              << "0. Exit\n"
+              << "Choose an option: ";
 }
