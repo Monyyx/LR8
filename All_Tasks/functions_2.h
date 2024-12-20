@@ -79,7 +79,8 @@ public:
         std::cout << "Enter 1 or 2 to input (bus type) / (bus number): ";
         InputUnion();
         std::cout << "Enter your plane destination: ";
-        std::cin >> destination_;
+        std::cin.ignore();
+        std::getline(std::cin, destination_);
         std::cout << "Enter arrival time (hh:mm): ";
         std::cin.ignore();
         InputTime(arrival_time_);
@@ -165,7 +166,8 @@ public:
             break;
         case 2:
             std::cout << "Enter bus destination: ";
-            std::cin >> my_struct->destination_;
+            std::cin.ignore();
+            std::getline(std::cin, my_struct->destination_);
             break;
         case 3:
             std::cout << "Enter arrival time (hh:mm): ";
@@ -187,7 +189,7 @@ public:
 }
 } BusInfo;
 
-void InputArrStruct_2(BusInfo*& input, size_t& size);
+void InputArrStruct_2(BusInfo*& input, size_t& size, size_t& capacitty);
 
 void OutputArrStruct_2(BusInfo*& my_struct, size_t size);
 

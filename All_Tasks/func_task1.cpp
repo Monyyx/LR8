@@ -40,9 +40,8 @@ void OutputStruct(const FlightInfo& my_struct, size_t index) {
 }
 
 //main functions :)
-void InputArrStruct(FlightInfo*& input, size_t& size) {
+void InputArrStruct(FlightInfo*& input, size_t& size, size_t& capacity) {
     char choice;
-    size_t capacity;
     std::cout << "Would you like to input data about a flight? (1 - yes, 0 - no): ";
     while (true) {
         std::cin >> choice;
@@ -71,7 +70,7 @@ void InputArrStruct(FlightInfo*& input, size_t& size) {
     std::cout << "Input data for flight " << (size + 1) << ":\n";
     input[size].InputStruct();
     ++size;
-    InputArrStruct(input, size);
+    InputArrStruct(input, size, capacity);
 }
 
 void OutputArrStruct(FlightInfo* my_struct, size_t size) {

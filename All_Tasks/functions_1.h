@@ -145,15 +145,15 @@ public:
                 break;
             case 3:
                 std::cout << "Enter class of flight: ";
-                std::cin >> my_struct->class_of_flight_;
+                std::cin.ignore();
+                std::getline(std::cin, my_struct->class_of_flight_);
                 break;
             case 4:
                 std::cout << "Enter destination: ";
-                std::cin >> my_struct->destination_;
+                std::getline(std::cin, my_struct->destination_);
                 break;
             case 5:
                 std::cout << "Enter arrival time (hh:mm): ";
-                std::cin.ignore();
                 my_struct->InputTime(my_struct->arrival_time_);
                 break;
             default:
@@ -168,16 +168,18 @@ public:
         std::cout << "Enter flight number: ";
         InputCheck(flight_number_);
         std::cout << "Enter class of your flight (first, business, etc.): ";
-        std::cin >> class_of_flight_;
+        std::cin.ignore();
+        std::getline(std::cin, class_of_flight_);
         std::cout << "Enter your plane destination: ";
-        std::cin >> destination_;
+        std::cin.ignore();
+        std::getline(std::cin, destination_);
         std::cout << "Enter arrival time (hh:mm): ";
         std::cin.ignore();
         InputTime(arrival_time_);
     }
 } flightInfo;
 
-void InputArrStruct(FlightInfo*& input, size_t& size);
+void InputArrStruct(FlightInfo*& input, size_t& size, size_t& capacity);
 
 void OutputArrStruct(FlightInfo* my_struct, size_t size);
 

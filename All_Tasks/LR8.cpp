@@ -4,7 +4,8 @@
 
 void Task_1(){
 size_t size = 0;
-flightInfo* scheldueFlight = new flightInfo[5];
+size_t capacity = 5;
+flightInfo* scheldueFlight = new flightInfo[capacity];
 flightInfo** arrStruct = &scheldueFlight;
 int choice;
     do {
@@ -34,7 +35,7 @@ int choice;
                 break;
             case 3:
                 system("clear");
-                InputArrStruct(scheldueFlight, size);
+                InputArrStruct(scheldueFlight, size, capacity);
                 break;
             case 4:
                 system("clear");
@@ -72,7 +73,8 @@ int choice;
 
 void Task_2(){
 size_t size = 0;
-BusInfo* scheldueBus = new BusInfo[5];
+size_t capacity = 5;
+BusInfo* scheldueBus = new BusInfo[capacity];
 BusInfo** arrStruct = &scheldueBus;
 int choice;
     do {
@@ -102,7 +104,7 @@ int choice;
                 break;
             case 3:
                 system("clear");
-                InputArrStruct_2(scheldueBus, size);
+                InputArrStruct_2(scheldueBus, size, capacity);
                 break;
             case 4:
                 system("clear");
