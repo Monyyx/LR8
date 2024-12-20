@@ -1,1 +1,0 @@
-g++  -fsanitize=address,undefined,leak -fno-omit-frame-pointer CMakeFiles/LR7.dir/LR8.cpp.o CMakeFiles/LR7.dir/func_task1.cpp.o CMakeFiles/LR7.dir/func_task2.cpp.o -o LR7 
