@@ -3,6 +3,7 @@
 #include <string>
 #include <limits>
 #include <algorithm>
+#include <fstream>
 
 void InputCheck(auto& number);
 
@@ -68,8 +69,8 @@ private:
     }
 
     bool CheckArrivDepart(const std::string arriaval, const std::string department){
-        long long timeArrive = (10 * arriaval[4] + arriaval[3]) * 3600 + (10 * arriaval[1] + arriaval[0]) * 60;
-        long long timeDepartment = (10 * department[4] + department[3]) * 3600 + (10 * department[1] + department[0]) * 60;
+        long long timeArrive = (10 * arriaval[0] + arriaval[1]) * 3600 + (10 * arriaval[3] + arriaval[4]) * 60;
+        long long timeDepartment = (10 * department[0] + department[1]) * 3600 + (10 * department[3] + department[4]) * 60;
         return (timeDepartment > timeArrive) ? 1 : 0;
     }
 
@@ -86,7 +87,9 @@ public:
         while(true){
             std::cin.ignore();
             InputTime(departure_time_);
-            if(CheckArrivDepart(arrival_time_, departure_time_)) break;
+            if(CheckArrivDepart(arrival_time_, departure_time_)) ;
+            else std::cout << "You cant drive in bus so long!!!\n";
+            break;
         }
     }
 
@@ -181,21 +184,18 @@ public:
             std::cout << "Invalid choice.\n";
             break;
     }
-
-    std::cout << "Updated bus information:\n";
-    OutputStruct(*my_struct);
 }
 } BusInfo;
 
 void InputArrStruct_2(BusInfo*& input, size_t& size);
 
-void OutputStruct(const BusInfo& my_struct, size_t index);
-
-void OutputArrStruct_2(BusInfo* my_struct, size_t size);
+void OutputArrStruct_2(BusInfo*& my_struct, size_t size);
 
 void OutputInterestingStruct_2(BusInfo* my_struct, size_t size);
 
-//func desription in cpp
+void CorrectStruct_2(BusInfo* my_struct, size_t size);
+
+void TextFile(const std::string &filename, BusInfo *&my_struct, size_t &size);
 
 void DeleteBusData_2(BusInfo** my_struct, size_t& size);
 

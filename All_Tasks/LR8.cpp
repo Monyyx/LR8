@@ -4,8 +4,8 @@
 
 void Task_1(){
 size_t size = 0;
-flightInfo* scheldue = new flightInfo[5];
-flightInfo** arrStruct = &scheldue;
+flightInfo* scheldueFlight = new flightInfo[5];
+flightInfo** arrStruct = &scheldueFlight;
 int choice;
     do {
         DisplayMenuTask();
@@ -34,21 +34,21 @@ int choice;
                 break;
             case 3:
                 system("clear");
-                InputArrStruct(scheldue, size);
+                InputArrStruct(scheldueFlight, size);
                 break;
             case 4:
                 system("clear");
-                if(size != 0) OutputInterestingStruct(scheldue, size);
+                if(size != 0) OutputInterestingStruct(scheldueFlight, size);
                 else std::cout << "First you need to add info about flights!\n";
                 break;
             case 5:
                 system("clear");
-                if (size != 0) OutputArrStruct(scheldue, size);
+                if (size != 0) OutputArrStruct(scheldueFlight, size);
                 else std::cout << "First you need to add info about flights!\n";
                 break;
             case 6:
                 system("clear");
-                if (size != 0) CorrectStruct(scheldue, size);
+                if (size != 0) CorrectStruct(scheldueFlight, size);
                 else std::cout << "First you need to add info about flights!\n";
                 break;
             case 7:
@@ -56,7 +56,7 @@ int choice;
                 DeleteFlightData(arrStruct, size);
                 break;
             case 8:
-                BinaryFile("task_1.hex", scheldue, size);
+                BinaryFile("task_1.hex", scheldueFlight, size);
                 break;
             case 0:
                 std::cout << "Exiting the program.\n";
@@ -67,7 +67,7 @@ int choice;
         std::cout << '\n';
     } while (choice != 0);
 
-    delete[] scheldue;
+    delete[] scheldueFlight;
 }
 
 void Task_2(){
@@ -76,7 +76,7 @@ BusInfo* scheldueBus = new BusInfo[5];
 BusInfo** arrStruct = &scheldueBus;
 int choice;
     do {
-        DisplayMenuTask();
+        DisplayMenuTask2();
         while (true) {
             std::cin >> choice;
             if (std::cin.fail() || choice < 0 || choice > 8) {
@@ -116,15 +116,15 @@ int choice;
                 break;
             case 6:
                 system("clear");
-                //if (size != 0) CorrectStruct(scheldue, size);
-                //else std::cout << "First you need to add info about flights!\n";
+                if (size != 0) CorrectStruct_2(scheldueBus, size);
+                else std::cout << "First you need to add info about flights!\n";
                 break;
             case 7:
                 system("clear");
                 DeleteBusData_2(arrStruct, size);
                 break;
             case 8:
-                //BinaryFile("task_1.hex", scheldue, size);
+                TextFile("task_2.txt", scheldueBus, size);
                 break;
             case 0:
                 std::cout << "Exiting the program.\n";
@@ -181,7 +181,7 @@ int main() {
                 break;
             case 3:
                 system("clear");
-                //Task_2();
+                Task_2();
                 break;
             case 0:
                 std::cout << "Exiting the program.\n";

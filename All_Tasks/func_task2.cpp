@@ -123,11 +123,13 @@ void OutputArrStruct_2(BusInfo*& my_struct, size_t size) {
         std::cout << "Sorting by city names scheldue: \n";
         for (size_t i = 0; i < size; ++i) {
             OutputStruct(my_struct[i], i);
+            std::cout << '\n';
         }
     } else {
         std::cout << "Not sorting schelsue: \n";
         for (size_t i = 0; i < size; ++i) {
         OutputStruct(my_struct[i], i);
+        std::cout << '\n';
         }
     }
 }
@@ -161,8 +163,7 @@ void OutputInterestingStruct_2(BusInfo* my_struct, size_t size) {
     }
 }
 
-// work with text file
-void CorrectStruct_2(BusInfo* my_struct, size_t size){
+void CorrectStruct_2(BusInfo* my_struct, size_t size) {
     std::cout << "Enter the number of bus that you want to correct : ";
     int choice;
     while (true) {
@@ -180,6 +181,131 @@ void CorrectStruct_2(BusInfo* my_struct, size_t size){
         }
     OutputStruct(my_struct[choice - 1], choice - 1);
     my_struct[choice - 1].EditStructPoles_2(&my_struct[choice - 1]);
+}
+
+// work with text
+void WriteStringToTextFile(std::ofstream &outFile, const std::string &str) {
+    outFile << str << '\n';
+}
+
+void ReadStringFromTextFile(std::ifstream &inFile, std::string &str) {
+    std::getline(inFile, str);
+}
+
+void SaveStructArrayToTextFile(const std::string &filename, BusInfo *my_struct, size_t size) {
+    std::ofstream outFile(filename);
+    if (!outFile) {
+        std::cerr << "Error!\n";
+        return;
+    }
+
+    outFile << size << '\n';
+
+    for (size_t i = 0; i < size; ++i) {
+        if (my_struct[i].is_type_) {
+            outFile << "1\n" << my_struct[i].add_info_.bus_type_ << '\n';
+        } else {
+            outFile << "2\n" << my_struct[i].add_info_.bus_number_ << '\n';
+        }
+        outFile << my_struct[i].destination_ << '\n';
+        outFile << my_struct[i].arrival_time_ << '\n';
+        outFile << my_struct[i].departure_time_ << '\n';
+    }
+
+    outFile.close();
+    if (!outFile.good()) {
+        std::cerr << "Error!\n";
+    }
+}
+
+void LoadStructArrayFromTextFile(const std::string &filename, BusInfo *&my_struct, size_t &size) {
+    std::ifstream inFile(filename);
+    if (!inFile) {
+        std::cerr << "Error!.\n";
+        return;
+    }
+
+    inFile >> size;
+    inFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    delete[] my_struct;
+    my_struct = new BusInfo[size];
+
+    for (size_t i = 0; i < size; ++i) {
+        int type_flag;
+        inFile >> type_flag;
+        inFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        if (type_flag == 1) {
+            my_struct[i].is_type_ = true;
+            inFile >> my_struct[i].add_info_.bus_type_;
+        } else {
+            my_struct[i].is_type_ = false;
+            inFile >> my_struct[i].add_info_.bus_number_;
+        }
+        inFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        ReadStringFromTextFile(inFile, my_struct[i].destination_);
+        ReadStringFromTextFile(inFile, my_struct[i].arrival_time_);
+        ReadStringFromTextFile(inFile, my_struct[i].departure_time_);
+    }
+
+    inFile.close();
+    if (!inFile.good()) {
+        std::cerr << "Error!\n";
+    }
+}
+
+void ClearTextFile(const std::string &filename) {
+    std::ofstream outFile(filename, std::ios::trunc);
+    if (!outFile) {
+        std::cerr << "Failed to open file!\n";
+        return;
+    }
+    outFile.close();
+}
+
+void TextFile(const std::string &filename, BusInfo *&my_struct, size_t &size) {
+    int choice;
+    do {
+        std::cout << "--- Context menu ---\n"
+              << "1. Safe in txt\n"
+              << "2. Load from txt\n"
+              << "3. Clear txt\n"
+              << "0. Exit\n"
+              << "Choose an option: ";
+        while (true) {
+            std::cin >> choice;
+            if (std::cin.fail() || choice < 0 || choice > 3) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid option (0-3): ";
+            } else if (std::cin.peek() != '\n') {
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please enter a valid option (0-3): ";
+            } else {
+                break;
+            }
+        }
+        system("clear");
+        switch (choice) {
+            case 1:
+                system("clear");
+                SaveStructArrayToTextFile(filename, my_struct, size);
+                break;
+            case 2:
+                system("clear");
+                LoadStructArrayFromTextFile(filename, my_struct, size);
+                break;
+            case 3:
+                system("clear");
+                ClearTextFile(filename);
+            case 0:
+                std::cout << "Exit.\n";
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
+        std::cout << '\n';
+    } while (choice != 0);
 }
 
 // context menu

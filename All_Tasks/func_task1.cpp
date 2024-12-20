@@ -254,13 +254,13 @@ void BinaryFile(const std::string &filename, FlightInfo *&my_struct, size_t &siz
               << "Choose an option: ";
         while (true) {
             std::cin >> choice;
-            if (std::cin.fail() || choice < 0 || choice > 6) {
+            if (std::cin.fail() || choice < 0 || choice > 3) {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter a valid option (0-6): ";
+                std::cout << "Invalid input. Please enter a valid option (0-3): ";
             } else if (std::cin.peek() != '\n') {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please enter a valid option (0-6): ";
+                std::cout << "Invalid input. Please enter a valid option (0-3): ";
             } else {
                 break;
             }
