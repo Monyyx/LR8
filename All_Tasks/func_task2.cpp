@@ -162,8 +162,8 @@ void OutputInterestingStruct_2(BusInfo* my_struct, size_t size) {
 }
 
 // work with text file
-void CorrectStruct_2(FlightInfo* my_struct, size_t size){
-    std::cout << "Enter the number of flight that you want to correct : ";
+void CorrectStruct_2(BusInfo* my_struct, size_t size){
+    std::cout << "Enter the number of bus that you want to correct : ";
     int choice;
     while (true) {
             std::cin >> choice;
@@ -179,9 +179,8 @@ void CorrectStruct_2(FlightInfo* my_struct, size_t size){
             }
         }
     OutputStruct(my_struct[choice - 1], choice - 1);
-    my_struct[choice - 1].EditStructPoles(&my_struct[choice - 1]);
+    my_struct[choice - 1].EditStructPoles_2(&my_struct[choice - 1]);
 }
-
 
 // context menu
 void DeleteBusData_2(BusInfo** my_struct, size_t& size) {
