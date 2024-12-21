@@ -4,6 +4,7 @@
 #include <limits>
 #include <algorithm>
 #include <fstream>
+#include <cstddef>
 
 void InputCheck(auto& number);
 
@@ -70,8 +71,20 @@ private:
     }
 
 public:
-    void EditStructPoles(FlightInfo* my_struct) {
-        char choice;
+void WriteStringToFileAtPosition(std::ofstream &outFile, const std::string &str, std::streampos position) {
+    size_t length = str.size();
+    outFile.seekp(position);
+    outFile.write(reinterpret_cast<const char*>(&length), sizeof(length));
+    outFile.write(str.c_str(), length);
+}
+
+
+    void EditStructPoles(FlightInfo** my_struct, int choice, const std::string &OutFile) {
+        char choicee;
+    std::ofstream outFile(OutFile, std::ios::binary | std::ios::in | std::ios::out); 
+        if (!outFile) { std::cerr << "Error!" << '\n';
+    return;
+    }
         std::cout << "Would you like to edit this flight data? (1 - yes, 0 - no): ";
         while (true) {
             std::cin >> choice;
@@ -86,7 +99,7 @@ public:
                 break;
             }
         }
-        if (choice == '0') {
+        if (choicee == '0') {
             return;
         }
 
@@ -113,53 +126,69 @@ public:
         }
 
         switch (field_choice) {
-            case 1:
-                std::cout << "Enter 1 to input airplane type code or 2 to input airplane type: ";
-                char type_choice;
-                while (true) {
-                    std::cin >> type_choice;
-                    if (std::cin.fail() || (type_choice != '1' && type_choice != '2')) {
-                        std::cin.clear();
-                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        std::cout << "Invalid input. Please enter '1' or '2': ";
-                    } else if (std::cin.peek() != '\n') {
-                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        std::cout << "Invalid input. Please enter '1' or '2': ";
-                    } else {
-                        break;
-                    }
-                }
-                if (type_choice == '1') {
-                    std::cout << "Enter airplane type code: ";
-                    InputCheck(my_struct->add_info_.airplane_type_code_);
-                    my_struct->is_code_ = true;
+        case 1:
+            std::cout << "Enter 1 to input airplane type code or 2 to input airplane type: ";
+            char type_choice;
+            while (true) {
+                std::cin >> type_choice;
+                if (std::cin.fail() || (type_choice != '1' && type_choice != '2')) {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Invalid input. Please enter '1' or '2': ";
+                } else if (std::cin.peek() != '\n') {
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Invalid input. Please enter '1' or '2': ";
                 } else {
-                    std::cout << "Enter airplane type: ";
-                    InputCheck(my_struct->add_info_.airplane_type_);
-                    my_struct->is_code_ = false;
+                    break;
                 }
-                break;
-            case 2:
-                std::cout << "Enter flight number: ";
-                InputCheck(my_struct->flight_number_);
-                break;
-            case 3:
-                std::cout << "Enter class of flight: ";
-                std::cin.ignore();
-                std::getline(std::cin, my_struct->class_of_flight_);
-                break;
-            case 4:
-                std::cout << "Enter destination: ";
-                std::getline(std::cin, my_struct->destination_);
-                break;
-            case 5:
-                std::cout << "Enter arrival time (hh:mm): ";
-                my_struct->InputTime(my_struct->arrival_time_);
-                break;
-            default:
-                std::cout << "Invalid choice.\n";
-                break;
-        }
+            }
+            if (type_choice == '1') {
+                std::cout << "Enter airplane type code: ";
+                InputCheck(my_struct[choice]->add_info_.airplane_type_code_);
+                my_struct[choice]->is_code_ = true;
+
+                outFile.seekp(offsetof(FlightInfo, add_info_));
+                outFile.write(reinterpret_cast<const char*>(&my_struct[choice]->add_info_), sizeof(my_struct[choice]->add_info_));
+            } else {
+                std::cout << "Enter airplane type: ";
+                InputCheck(my_struct[choice]->add_info_.airplane_type_);
+                my_struct[choice]->is_code_ = false;
+
+                outFile.seekp(offsetof(FlightInfo, add_info_));
+                outFile.write(reinterpret_cast<const char*>(&my_struct[choice]->add_info_), sizeof(my_struct[choice]->add_info_));
+            }
+            outFile.seekp(offsetof(FlightInfo, is_code_));
+            outFile.write(reinterpret_cast<const char*>(&my_struct[choice]->is_code_), sizeof(my_struct[choice]->is_code_));
+            break;
+        case 2:
+            std::cout << "Enter flight number: ";
+            InputCheck(my_struct[choice]->flight_number_);
+            outFile.seekp(offsetof(FlightInfo, flight_number_));
+            outFile.write(reinterpret_cast<const char*>(&my_struct[choice]->flight_number_), sizeof(my_struct[choice]->flight_number_));
+            break;
+        case 3:
+            std::cout << "Enter class of flight: ";
+            std::cin.ignore();
+            std::getline(std::cin, my_struct[choice]->class_of_flight_);
+            WriteStringToFileAtPosition(outFile, my_struct[choice]->class_of_flight_, offsetof(FlightInfo, class_of_flight_));
+            break;
+        case 4:
+            std::cout << "Enter destination: ";
+            std::cin.ignore();
+            std::getline(std::cin, my_struct[choice]->destination_);
+            WriteStringToFileAtPosition(outFile, my_struct[choice]->destination_, offsetof(FlightInfo, destination_));
+            break;
+        case 5:
+            std::cout << "Enter arrival time (hh:mm): ";
+            InputTime(my_struct[choice]->arrival_time_);
+            WriteStringToFileAtPosition(outFile, my_struct[choice]->arrival_time_, offsetof(FlightInfo, arrival_time_));
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            break;
+    }
+
+    outFile.close();
     }
 
     void InputStruct() {
@@ -184,7 +213,7 @@ void OutputArrStruct(FlightInfo* my_struct, size_t size);
 
 void OutputInterestingStruct(FlightInfo* my_struct, size_t size);
 
-void CorrectStruct(flightInfo* my_struct, size_t size);
+void CorrectStruct(flightInfo* my_struct, size_t size, const std::string &OutFile);
 
 void DeleteFlightData(FlightInfo** my_struct, size_t& size);
 

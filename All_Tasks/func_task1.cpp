@@ -124,7 +124,7 @@ void OutputInterestingStruct(FlightInfo* my_struct, size_t size) {
     }
 }
 
-void CorrectStruct(FlightInfo* my_struct, size_t size){
+void CorrectStruct(FlightInfo* my_struct, size_t size, const std::string &OutFile){
     std::cout << "Enter the number of flight that you want to correct : ";
     int choice;
     while (true) {
@@ -141,7 +141,7 @@ void CorrectStruct(FlightInfo* my_struct, size_t size){
             }
         }
     OutputStruct(my_struct[choice - 1], choice - 1);
-    my_struct[choice - 1].EditStructPoles(&my_struct[choice - 1]);
+    my_struct[choice - 1].EditStructPoles(&my_struct, choice - 1, OutFile);
 }
 
 void DeleteFlightData(FlightInfo** my_struct, size_t& size) {

@@ -1,0 +1,3 @@
+/home/matvei/453503/ОАиП/LR8/build/CMakeFiles/LR8.dir
+/home/matvei/453503/ОАиП/LR8/build/CMakeFiles/edit_cache.dir
+/home/matvei/453503/ОАиП/LR8/build/CMakeFiles/rebuild_cache.dir
