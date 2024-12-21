@@ -174,7 +174,6 @@ public:
         std::cin.ignore();
         std::getline(std::cin, destination_);
         std::cout << "Enter arrival time (hh:mm): ";
-        std::cin.ignore();
         InputTime(arrival_time_);
     }
 } flightInfo;

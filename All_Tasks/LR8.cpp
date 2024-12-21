@@ -140,7 +140,6 @@ int choice;
     delete[] scheldueBus;
 }
 
-
 void DisplayMenu() {
     std::cout << "--- Context menu ---\n"
               << "1. Here you can check the whole\n"
