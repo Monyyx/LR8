@@ -123,8 +123,37 @@ void OutputInterestingStruct(FlightInfo* my_struct, size_t size) {
         std::cout << "No airplanes arriving at " << interest_city << ".\n";
     }
 }
+/*
+void CorrectStruct(FlightInfo* my_struct, size_t size, const std::string &OutFile) {
+    std::cout << "Enter the number of flight that you want to correct: ";
+    int choice;
+    while (true) {
+        std::cin >> choice;
+        if (std::cin.fail() || choice < 0 || choice > size) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid option (0- " << size << "): ";
+        } else if (std::cin.peek() != '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid option (0-" << size << "):";
+        } else {
+            break;
+        }
+    }
 
-void CorrectStruct(FlightInfo* my_struct, size_t size, const std::string &OutFile){
+    std::ofstream outFile(OutFile, std::ios::binary | std::ios::in | std::ios::out);
+    if (!outFile) {
+        std::cerr << "Error opening file!" << '\n';
+        return;
+    }
+
+    // Correct the structure
+    my_struct[choice - 1].EditStructPoles(outFile, my_struct[choice - 1], my_struct, choice - 1);
+
+    outFile.close();
+}
+
+/*void CorrectStruct(FlightInfo* my_struct, size_t size, const std::string &OutFile){
     std::cout << "Enter the number of flight that you want to correct : ";
     int choice;
     while (true) {
@@ -142,7 +171,150 @@ void CorrectStruct(FlightInfo* my_struct, size_t size, const std::string &OutFil
         }
     OutputStruct(my_struct[choice - 1], choice - 1);
     my_struct[choice - 1].EditStructPoles(&my_struct, choice - 1, OutFile);
+}*/
+
+void WriteStringToFileAtPosition(std::fstream &outFile, const std::string &str, std::streampos position) {
+    size_t length = str.size();
+    outFile.seekp(position);
+    outFile.write(reinterpret_cast<const char*>(&length), sizeof(length));
+    outFile.write(str.c_str(), length);
 }
+
+void EditStructInBinaryFile(FlightInfo* flightList, size_t size, const std::string &filename) {
+    std::cout << "Enter the number of flight that you want to correct: ";
+    int choice;
+    while (true) {
+        std::cin >> choice;
+        if (std::cin.fail() || choice < 1 || choice > size) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid option (1- " << size << "): ";
+        } else if (std::cin.peek() != '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid option (1-" << size << "):";
+        } else {
+            break;
+        }
+    }
+
+    // Открываем бинарный файл для чтения и записи
+    std::fstream file(filename, std::ios::binary | std::ios::in | std::ios::out);
+    if (!file) {
+        std::cerr << "Error opening file!" << '\n';
+        return;
+    }
+
+    FlightInfo &flight = flightList[choice - 1];
+
+    char editChoice;
+    std::cout << "Would you like to edit this flight data? (1 - yes, 0 - no): ";
+    while (true) {
+        std::cin >> editChoice;
+        if (std::cin.fail() || (editChoice != '1' && editChoice != '0')) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter '1' or '0': ";
+        } else if (std::cin.peek() != '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter '1' or '0': ";
+        } else {
+            break;
+        }
+    }
+    if (editChoice == '0') {
+        file.close();
+        return;
+    }
+
+    std::cout << "Enter the number of the field to edit:\n";
+    std::cout << "1 - Airplane Type / Number\n";
+    std::cout << "2 - Flight Number\n";
+    std::cout << "3 - Class of Flight\n";
+    std::cout << "4 - Destination\n";
+    std::cout << "5 - Arrival Time\n";
+
+    size_t field_choice;
+    while (true) {
+        std::cin >> field_choice;
+        if (std::cin.fail() || field_choice < 1 || field_choice > 5) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid field number (1 to 5): ";
+        } else if (std::cin.peek() != '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid field number (1 to 5): ";
+        } else {
+            break;
+        }
+    }
+
+    switch (field_choice) {
+        case 1:
+            std::cout << "Enter 1 to input airplane type code or 2 to input airplane type: ";
+            char type_choice;
+            while (true) {
+                std::cin >> type_choice;
+                if (std::cin.fail() || (type_choice != '1' && type_choice != '2')) {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Invalid input. Please enter '1' or '2': ";
+                } else if (std::cin.peek() != '\n') {
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Invalid input. Please enter '1' or '2': ";
+                } else {
+                    break;
+                }
+            }
+            if (type_choice == '1') {
+                std::cout << "Enter airplane type code: ";
+                InputCheck(flight.add_info_.airplane_type_code_);
+                flight.is_code_ = true;
+            } else {
+                std::cout << "Enter airplane type: ";
+                InputCheck(flight.add_info_.airplane_type_);
+                flight.is_code_ = false;
+            }
+            break;
+        case 2:
+            std::cout << "Enter flight number: ";
+            InputCheck(flight.flight_number_);
+            break;
+        case 3:
+            std::cout << "Enter class of flight: ";
+            std::cin.ignore();
+            std::getline(std::cin, flight.class_of_flight_);
+            break;
+        case 4:
+            std::cout << "Enter destination: ";
+            std::cin.ignore();
+            std::getline(std::cin, flight.destination_);
+            break;
+        case 5:
+            std::cout << "Enter arrival time (hh:mm): ";
+            InputTime(flight.arrival_time_);
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            file.close();
+            return;
+    }
+
+    // Вычисление позиции структуры в файле
+    std::streampos pos = sizeof(size_t) + (choice - 1) * (sizeof(flight.add_info_) + sizeof(flight.is_code_) + sizeof(flight.flight_number_)
+                                                          + flight.class_of_flight_.size() + sizeof(size_t) + flight.destination_.size() + sizeof(size_t)
+                                                          + flight.arrival_time_.size() + sizeof(size_t));
+
+    file.seekp(pos);
+    file.write(reinterpret_cast<const char*>(&flight.add_info_), sizeof(flight.add_info_));
+    file.write(reinterpret_cast<const char*>(&flight.is_code_), sizeof(flight.is_code_));
+    file.write(reinterpret_cast<const char*>(&flight.flight_number_), sizeof(flight.flight_number_));
+    WriteStringToFileAtPosition(file, flight.class_of_flight_, file.tellp());
+    WriteStringToFileAtPosition(file, flight.destination_, file.tellp());
+    WriteStringToFileAtPosition(file, flight.arrival_time_, file.tellp());
+
+    file.close();
+}
+
 
 void DeleteFlightData(FlightInfo** my_struct, size_t& size) {
     std::cout << "Your sure that you want delete all data about flights& (1 - yes, 0 - no): ";

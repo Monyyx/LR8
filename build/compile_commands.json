@@ -1,19 +1,19 @@
 [
 {
   "directory": "/home/matvei/453503/ОАиП/LR8/build",
-  "command": "g++    -fsanitize=address,undefined,leak -fno-omit-frame-pointer -g -std=gnu++20 -o CMakeFiles/LR8.dir/LR8.cpp.o -c /home/matvei/453503/ОАиП/LR8/All_Tasks/LR8.cpp",
+  "command": "g++   -g -std=gnu++20 -o CMakeFiles/LR8.dir/LR8.cpp.o -c /home/matvei/453503/ОАиП/LR8/All_Tasks/LR8.cpp",
   "file": "/home/matvei/453503/ОАиП/LR8/All_Tasks/LR8.cpp",
   "output": "CMakeFiles/LR8.dir/LR8.cpp.o"
 },
 {
   "directory": "/home/matvei/453503/ОАиП/LR8/build",
-  "command": "g++    -fsanitize=address,undefined,leak -fno-omit-frame-pointer -g -std=gnu++20 -o CMakeFiles/LR8.dir/func_task1.cpp.o -c /home/matvei/453503/ОАиП/LR8/All_Tasks/func_task1.cpp",
+  "command": "g++   -g -std=gnu++20 -o CMakeFiles/LR8.dir/func_task1.cpp.o -c /home/matvei/453503/ОАиП/LR8/All_Tasks/func_task1.cpp",
   "file": "/home/matvei/453503/ОАиП/LR8/All_Tasks/func_task1.cpp",
   "output": "CMakeFiles/LR8.dir/func_task1.cpp.o"
 },
 {
   "directory": "/home/matvei/453503/ОАиП/LR8/build",
-  "command": "g++    -fsanitize=address,undefined,leak -fno-omit-frame-pointer -g -std=gnu++20 -o CMakeFiles/LR8.dir/func_task2.cpp.o -c /home/matvei/453503/ОАиП/LR8/All_Tasks/func_task2.cpp",
+  "command": "g++   -g -std=gnu++20 -o CMakeFiles/LR8.dir/func_task2.cpp.o -c /home/matvei/453503/ОАиП/LR8/All_Tasks/func_task2.cpp",
   "file": "/home/matvei/453503/ОАиП/LR8/All_Tasks/func_task2.cpp",
   "output": "CMakeFiles/LR8.dir/func_task2.cpp.o"
 }

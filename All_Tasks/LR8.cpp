@@ -49,7 +49,7 @@ int choice;
                 break;
             case 6:
                 system("clear");
-                if (size != 0) CorrectStruct(scheldueFlight, size, "task_1.hex");
+                if (size != 0) EditStructInBinaryFile(scheldueFlight, size, "task_1.hex");//CorrectStruct(scheldueFlight, size, "task_1.hex");
                 else std::cout << "First you need to add info about flights!\n";
                 break;
             case 7:
